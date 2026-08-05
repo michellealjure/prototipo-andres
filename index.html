@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Work+Sans:ital,wght@0,400;0,500;0,600;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+@font-face{font-family:'Ap1955';src:url('assets/fonts/1955-Medium.otf') format('opentype');font-weight:400 600;font-style:normal;font-display:swap}
+@font-face{font-family:'Ap1955';src:url('assets/fonts/1955-MediumItalic.otf') format('opentype');font-weight:400 600;font-style:italic;font-display:swap}
+*{box-sizing:border-box}
+:root{--training-scale:.8}
+body{margin:0;background:#f6f1eb;color:#33302b;font-family:'Work Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+html,body{height:auto!important;min-height:100vh}
+#dc-root,.sc-host{height:auto!important;min-height:100%}
+a{color:#295ed1}
+a:hover{color:#4395ec}
+.split{display:flex;flex-direction:column;gap:36px}
+@media(min-width:900px){.split{flex-direction:row;gap:56px;align-items:center}.split.top{align-items:flex-start}}
+.col{flex:1;min-width:0}
+.tcards{display:grid;grid-template-columns:1fr;gap:18px}
+@media(min-width:720px){.tcards{grid-template-columns:repeat(3,1fr)}}
+summary{list-style:none;cursor:pointer}
+summary::-webkit-details-marker{display:none}
+details[open] .chev{transform:rotate(45deg)}
+details[open] .acc-body{animation:accIn .4s ease both}
+.stat-grid{display:grid;grid-template-columns:1fr}
+.stat-cell{padding:20px 0;border-top:1px solid #e3d9c9}
+.stat-cell:first-child{border-top:none;padding-top:4px}
+@media(min-width:760px){
+  .stat-grid{grid-template-columns:repeat(4,1fr)}
+  .stat-cell{padding:4px 26px;border-top:none;border-left:1px solid #e3d9c9}
+  .stat-cell:first-child{border-left:none;padding-left:0}
+}
+.exp-wrap{display:flex;flex-direction:column;gap:40px}
+@media(min-width:900px){.exp-wrap{flex-direction:row;gap:52px;align-items:flex-start}}
+.exp-stats{width:100%;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:14px;padding:2px 20px}
+@media(min-width:900px){.exp-stats{width:300px;flex:none}}
+.exp-stat{padding:14px 0;border-top:1px solid rgba(255,255,255,.2)}
+.exp-stat:first-child{border-top:none}
+.exp-main{flex:1;min-width:0}
+@media(min-width:900px){.exp-main{align-self:flex-end}}
+.cert-viewport{overflow:hidden;margin-top:28px}
+.cert-track{display:flex;width:max-content;animation:certScroll 42s linear infinite}
+.cert-viewport:hover .cert-track{animation-play-state:paused}
+.cert-card{margin-right:14px;flex:none}
+@keyframes certScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.logostrip-viewport{overflow:hidden}
+.logostrip-track{display:flex;align-items:flex-start;justify-content:flex-start;gap:14px;width:max-content;animation:logoScroll 44s linear infinite}
+.logostrip-viewport:hover .logostrip-track{animation-play-state:paused}
+.logo-item{margin-right:44px;flex:none;color:#6b6358}
+.training-card{flex:none;color:#6b6358;width:fit-content;display:flex;align-items:flex-start;gap:1rem;background:rgba(245,238,224,.2);border:1px solid rgba(255,255,255,.55);border-radius:14px;padding:16px}
+.training-logo{flex:none;align-self:center;width:calc(96px*var(--training-scale));height:calc(96px*var(--training-scale));background:rgba(255,255,255,.5);border:1px solid rgba(255,255,255,.65);border-radius:12px;display:flex;align-items:center;justify-content:center;padding:calc(10px*var(--training-scale))}
+.training-logo img{max-width:100%;max-height:100%;width:auto;height:auto;object-fit:contain;display:block}
+.training-text{flex:1;min-width:0;display:flex;flex-direction:column;justify-content:flex-start}
+.training-years{display:flex;align-items:baseline;font-family:'Ap1955',sans-serif;font-weight:500;font-size:calc(clamp(2.25rem,4vw,3.25rem)*var(--training-scale));line-height:1;color:#6b6358;margin:0 0 .25rem}
+.training-year-end{letter-spacing:-0.02em;line-height:1}
+.training-year-range{font-size:0.45em;opacity:.6;line-height:1}
+.training-uni{font-size:calc(16px*var(--training-scale));line-height:1.15;color:#514a41;margin:0 0 .25rem}
+.training-title{font-size:calc(15px*var(--training-scale));font-weight:600;line-height:1.2;color:#514a41;margin:0}
+.logostrip-viewport{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 46px,#000 calc(100% - 46px),transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 46px,#000 calc(100% - 46px),transparent 100%)}
+.hero-media{width:100%}
+@media(min-width:900px){.hero-media{width:447px;flex:none}}
+.glow-frame{padding:1.6px;background:linear-gradient(145deg,rgba(255,255,255,.92) 0%,rgba(255,255,255,.18) 34%,rgba(255,255,255,.12) 64%,rgba(255,255,255,.88) 100%);box-shadow:0 0 26px 2px rgba(255,255,255,.20),0 10px 28px rgba(0,0,0,.30)}
+.hero-name-glow{text-shadow:0 2px 26px rgba(0,0,0,.4),0 0 12px rgba(255,255,255,.20)}
+.hero-name-shine{color:transparent;-webkit-background-clip:text;background-clip:text;background-repeat:no-repeat;background-image:linear-gradient(100deg,rgba(255,255,255,.9) 0%,rgba(255,255,255,.9) 45%,#fff 50%,rgba(255,255,255,.9) 55%,rgba(255,255,255,.9) 100%);background-size:300% 100%;background-position:0 0}
+@keyframes nameShine{from{background-position:100% 0}to{background-position:0 0}}
+@keyframes nameGlowIn{from{text-shadow:0 2px 26px rgba(0,0,0,.4),0 0 12px rgba(255,255,255,0)}to{text-shadow:0 2px 26px rgba(0,0,0,.4),0 0 12px rgba(255,255,255,.20)}}
+.glow-frame>.glow-inner{width:100%;height:100%;border-radius:8px;overflow:hidden;position:relative}
+.glow-frame>.glow-inner::after{content:"";position:absolute;inset:0;border-radius:8px;box-shadow:inset 0 1px 0 rgba(255,255,255,.45),inset 0 0 18px rgba(255,255,255,.10);pointer-events:none}
+@keyframes logoScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.care-title{text-wrap:balance}
+@media(min-width:820px){.care-title{white-space:nowrap}}
+.care-byside{font-family:'Ap1955',sans-serif;font-weight:500;color:#fff;font-size:clamp(22px,3vw,36px);line-height:1.14;margin:0 auto 22px}
+.care-moments{display:flex;justify-content:center;align-items:flex-start;gap:clamp(26px,6vw,64px);margin:0 auto 26px;flex-wrap:wrap}
+.care-moment{cursor:pointer;text-align:center;padding:2px 6px}
+.care-moment-title{font-family:'Ap1955',sans-serif;font-weight:500;color:#fff;font-size:clamp(17px,2.2vw,22px);line-height:1.1}
+.care-dot{width:12px;height:12px;border-radius:50%;background:#2cafa4;margin:.75rem auto 0}
+.care-moment:nth-child(1) .care-dot{animation-delay:0s}
+.care-moment:nth-child(2) .care-dot{animation-delay:.2s}
+.care-moment:nth-child(3) .care-dot{animation-delay:.4s}
+@keyframes heartbeat{0%{transform:scale(1)}14%{transform:scale(1.25)}28%{transform:scale(1)}42%{transform:scale(1.18)}56%{transform:scale(1)}100%{transform:scale(1)}}
+@media(prefers-reduced-motion:no-preference){.care-dot{animation:heartbeat 1.6s ease-in-out infinite}}
+.care-dot--active{background:#295ed1!important;animation-play-state:paused!important}
+.care-desc-wrap{position:relative;max-width:600px;margin:0 auto;text-align:left}
+.care-desc-sizer{color:transparent;font-size:15px;line-height:1.6;margin:0;pointer-events:none}
+.care-desc{position:absolute;left:0;right:0;top:0;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease;color:#fff;font-size:15px;line-height:1.6;margin:0}
+.care-desc.is-shown{opacity:1;visibility:visible}
+.care-accordion{display:none;text-align:left;max-width:600px;margin:0 auto;overflow:hidden;max-height:0;transition:max-height .5s ease}
+.care-accordion.is-open{max-height:1400px}
+.care-acc-item{margin-bottom:16px}
+.care-acc-title{font-family:'Ap1955',sans-serif;font-weight:500;color:#fff;font-size:18px;margin-bottom:4px}
+.care-acc-desc{color:#fff;font-size:15px;line-height:1.6;margin:0}
+@media(max-width:720px){.care-byside{cursor:pointer;text-decoration:underline;text-underline-offset:5px;text-decoration-color:rgba(255,255,255,.6)}.care-desc-wrap{display:none}.care-accordion{display:block}}
+.care-glow{position:absolute;left:22%;top:20%;width:52%;height:80%;transform:translate(-50%,-50%) scale(1);background:radial-gradient(closest-side, rgba(143,212,200,.85), rgba(143,212,200,0) 70%);filter:blur(14px);mix-blend-mode:screen;pointer-events:none;z-index:1;opacity:.17;animation:careHeartbeat 4.2s ease-in-out infinite}
+@keyframes careHeartbeat{0%{opacity:.17;transform:translate(-50%,-50%) scale(1)}10%{opacity:.34;transform:translate(-50%,-50%) scale(1.03)}20%{opacity:.17;transform:translate(-50%,-50%) scale(1.008)}30%{opacity:.30;transform:translate(-50%,-50%) scale(1.02)}42%{opacity:.17;transform:translate(-50%,-50%) scale(1)}100%{opacity:.17;transform:translate(-50%,-50%) scale(1)}}
+@media (prefers-reduced-motion: reduce){.care-glow{animation:none;opacity:.16}}
+.testi-viewport{overflow:hidden}
+.testi-track{display:flex;width:max-content;animation:testiScroll 46s linear infinite}
+.testi-viewport:hover .testi-track{animation-play-state:paused}
+.testi-card{margin-right:18px;flex:none}
+.testi-row{display:flex;flex-direction:column;gap:26px;max-width:1180px;margin:0 auto;padding:0 22px}
+.testi-photo{position:relative;overflow:hidden;width:100%;min-height:220px;border-radius:14px;display:block}
+@media(min-width:900px){.testi-row{flex-direction:row;align-items:stretch}.testi-photo{width:340px;flex:none;min-height:0;align-self:stretch}}
+.testi-row .testi-viewport{-webkit-mask-image:linear-gradient(to right,transparent 0,#000 46px,#000 calc(100% - 46px),transparent 100%);mask-image:linear-gradient(to right,transparent 0,#000 46px,#000 calc(100% - 46px),transparent 100%)}
+@keyframes testiScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@keyframes revealUp{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes heroIn{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+@keyframes accIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes frameIn{from{opacity:0;transform:translateY(24px) scale(.95)}to{opacity:1;transform:none}}
+.fade-sub{opacity:1;transform:none}
+@media (prefers-reduced-motion: no-preference){
+  .rv{animation:revealUp both;animation-timeline:view();animation-range:entry 2% cover 26%}
+  .hero-in{animation:heroIn .9s cubic-bezier(.22,.61,.36,1) both}
+  .fade-sub{opacity:0;animation:frameIn .9s cubic-bezier(.22,.61,.36,1) both;animation-delay:.55s}
+  .fade-sub.fade-sub-2{animation-delay:.85s}
+  .hero-name-shine{animation:nameShine .9s cubic-bezier(.4,0,.2,1) 1.9s both}
+}
+@media (prefers-reduced-motion: reduce){
+  .testi-track{animation:none}
+  .testi-viewport{overflow-x:auto}
+  .cert-track{animation:none}
+  .cert-viewport{overflow-x:auto}
+  .logostrip-track{animation:none}
+  .logostrip-viewport{overflow-x:auto}
+}
+</style>
+</helmet>
+<div style="max-width:1180px;margin:0 auto;padding:10px 22px 0;text-align:center;font-family:ui-monospace,Menlo,monospace;font-size:11px;letter-spacing:.06em;color:#a89b8a">WIREFRAME · BAJA FIDELIDAD · PARA APROBACIÓN</div>
+
+<header style="position:sticky;top:12px;z-index:1000;padding:12px 22px 0">
+  <div style="max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;background:#ffffff;border:1px solid #ece3d6;border-radius:22px;box-shadow:0 6px 22px rgba(41,94,209,.07);padding:12px 14px 12px 18px">
+    <div style="display:flex;align-items:center;gap:{{ headerLogoGap }};min-width:0">
+      <div style="width:{{ headerIconPx }};height:{{ headerIconPx }};display:flex;align-items:center;justify-content:center;flex:none"><img src="assets/logo-icon.png" alt="Dr. Andrés Aponte" style="width:{{ headerIconPx }};height:{{ headerIconPx }};object-fit:contain;display:block"></div>
+      <div style="min-width:0">
+        <div style="font-family:'Ap1955',sans-serif;font-size:17px;color:#295ed1;line-height:1.1">Dr. Andrés Aponte</div>
+        <div style="font-size:12px;color:#7c7368;line-height:1.2">{{ headerSub }}</div>
+      </div>
+    </div>
+    <div style="display:flex;align-items:center;gap:12px;flex:none">
+      <div style="display:flex;align-items:center;background:#f6f1eb;border-radius:999px;padding:3px">
+        <button type="button" onClick="{{ setES }}" style="{{ esBtn }}">ES</button>
+        <button type="button" onClick="{{ setEN }}" style="{{ enBtn }}">EN</button>
+      </div>
+      <a href="https://wa.me/573107749596" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;background:#295ed1;color:#fff;font-weight:600;font-size:14.5px;padding:12px 20px;border-radius:999px;text-decoration:none;white-space:nowrap;transition:transform .2s cubic-bezier(.22,.61,.36,1),background-color .2s,box-shadow .2s" style-hover="background:#1f4dab;transform:translateY(-1px);box-shadow:0 8px 18px rgba(41,94,209,.26)"><svg viewBox="0 0 448 512" width="17" height="17" fill="currentColor" style="flex:none"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.2-157zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4z"/></svg>{{ ctaHeader }} <span style="font-size:16px">↗</span></a>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section style="padding:48px 22px 40px">
+  <div class="split" style="max-width:1180px;margin:0 auto">
+    <div class="col" style="display:flex;flex-direction:column">
+      <div class="hero-in" style="font-family:'Work Sans',sans-serif;font-weight:400;font-size:clamp(17px,2.2vw,21px);color:#8a8175;margin-bottom:8px;animation-delay:.05s">{{ heroLocation }}</div>
+      <div class="hero-in" style="font-family:'Ap1955',sans-serif;font-weight:500;color:#2cafa4;font-size:clamp(34px,5.2vw,60px);line-height:1.04;margin:0 0 30px;text-wrap:pretty;animation-delay:.12s">{{ heroProfession }}</div>
+      <h1 class="hero-in" style="font-family:'Ap1955',sans-serif;font-weight:500;color:#295ed1;font-size:clamp(16px,2.35vw,27px);line-height:1.2;margin:0 0 8px;text-wrap:pretty;animation-delay:.2s">{{ heroTitle }}</h1>
+      <p class="hero-in" style="font-family:'Work Sans',sans-serif;font-style:italic;font-weight:400;font-size:clamp(17px,2.2vw,21px);color:#514a41;margin:0 0 18px;max-width:34ch;animation-delay:.28s">{{ heroSub }}</p>
+      <div class="hero-in" style="display:flex;flex-direction:column;gap:14px;align-items:flex-start;animation-delay:.3s">
+        <a href="https://wa.me/573107749596" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#295ed1;color:#fff;font-weight:600;font-size:16px;padding:16px 26px;border-radius:999px;text-decoration:none;transition:transform .25s cubic-bezier(.22,.61,.36,1),background-color .25s,box-shadow .25s" style-hover="background:#1f4dab;transform:translateY(-2px);box-shadow:0 12px 26px rgba(41,94,209,.3)"><svg viewBox="0 0 448 512" width="19" height="19" fill="currentColor" style="flex:none"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.2-157zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4z"/></svg>{{ ctaMain }} <span style="font-size:18px">↗</span></a>
+        <a ref="{{ cbRef }}" href="#contact" onClick="{{ openCallForm }}" style="{{ cbBtnStyle }}"><svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex:none"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2 4.2 2 2 0 0 1 4 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg><span style="margin-left:.5em">{{ heroSecondaryShort }}</span><span data-reveal="1" style="{{ cbRevealStyle }}">{{ heroSecondaryMore }}</span></a>
+      </div>
+    </div>
+    <div class="col hero-media hero-in" style="position:relative;animation-delay:.2s">
+      <div style="position:relative;border-radius:18px;overflow:hidden;background:#20242e;aspect-ratio:3/4;min-height:0;max-height:none;display:flex;align-items:center;justify-content:center;border:1px solid #e7ddce">
+        <img src="assets/hero-doctor.png" alt="Dr. Andrés Aponte" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 18%;display:block">
+        <div style="position:absolute;left:0;right:0;bottom:0;height:60%;background:linear-gradient(to top,rgba(14,20,34,.58),rgba(14,20,34,.20) 44%,rgba(14,20,34,0) 100%);pointer-events:none;z-index:1"></div>
+        <div class="hero-name-glow hero-name-shine" style="position:absolute;left:24px;right:24px;bottom:39.3%;text-align:center;font-family:'Ap1955',sans-serif;font-weight:500;font-size:clamp(26px,4.4vw,50px);line-height:1;letter-spacing:-.01em;z-index:3">Dr. Andrés Aponte</div>
+      </div>
+      <div class="fade-sub glow-frame" ref="{{ frameRef }}" style="position:absolute;top:19px;right:19px;width:155px;height:217px;border-radius:10px;z-index:4">
+        <div class="glow-inner"><img src="assets/surgery-2.jpg" alt="Cirugía" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+      </div>
+      <div class="fade-sub fade-sub-2 glow-frame" ref="{{ frameRef }}" style="position:absolute;bottom:19px;left:19px;width:233px;height:158px;border-radius:10px;z-index:4">
+        <div class="glow-inner"><img src="assets/surgery-1.jpg" alt="Cirugía" style="width:100%;height:100%;object-fit:cover;display:block"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEC 2 · PROPÓSITO + EXPERIENCIA (video de fondo) ===== -->
+<section style="padding:22px 22px">
+  <div style="max-width:1180px;margin:0 auto;position:relative;border-radius:18px;overflow:hidden;background:#20449a">
+    <video ref="{{ videoRef }}" autoplay loop muted playsinline preload="auto" aria-hidden="true" style="position:absolute;top:0;left:0;width:100%;height:120%;object-fit:cover;z-index:0">
+      <source src="assets/purpose-bg.mp4" type="video/mp4">
+    </video>
+    <div style="position:absolute;inset:0;z-index:1;background:linear-gradient(150deg,rgba(41,94,209,.5),rgba(41,94,209,.62));pointer-events:none"></div>
+    <div style="position:absolute;inset:0;z-index:1;background:radial-gradient(130% 120% at 12% 12%,rgba(12,30,82,0) 0%,rgba(12,30,82,.34) 52%,rgba(12,30,82,.74) 100%);pointer-events:none"></div>
+    <div class="exp-wrap" style="position:relative;z-index:2;padding:60px 40px">
+      <div class="exp-main">
+        <div class="rv" style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:rgba(255,255,255,.6);letter-spacing:.08em;margin-bottom:16px">{{ purposeKicker }}</div>
+        <p class="rv" style="font-family:'Ap1955',sans-serif;font-weight:500;color:#fff;font-size:clamp(22px,2.9vw,32px);line-height:1.3;margin:0 0 22px;text-wrap:pretty">{{ purposeText }}</p>
+        <p class="rv" style="color:rgba(255,255,255,.82);font-size:15px;line-height:1.62;margin:0;max-width:64ch">{{ experienceText }}</p>
+      </div>
+      <div class="exp-stats rv" ref="{{ statsRef }}">
+        <sc-for list="{{ statViews }}" as="s" hint-placeholder-count="4">
+          <div class="exp-stat">
+            <div style="font-family:'Ap1955',sans-serif;font-weight:500;font-size:clamp(36px,3.6vw,40px);color:#b5e5cf;line-height:1">{{ s.display }}</div>
+            <div style="font-size:15px;font-weight:600;color:#fff;margin-top:8px;line-height:1.25">{{ s.label }}</div>
+            <div style="font-style:italic;font-size:12.5px;color:rgba(255,255,255,.72);margin-top:6px;line-height:1.45">{{ s.sub }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEC 2.5 · CERT / LOGO STRIP (bone, sin video) ===== -->
+<section style="padding:28px 0 8px">
+  <div style="max-width:1180px;margin:0 auto;padding:0 22px 18px">
+    <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#a89b8a;letter-spacing:.07em">{{ certStripLabel }}</div>
+  </div>
+  <div class="logostrip-viewport">
+    <div class="logostrip-track">
+      <sc-for list="{{ certLoop }}" as="c" hint-placeholder-count="8">
+        <div class="training-card">
+          <div class="training-logo"><img src="{{ c.logo }}" alt=""></div>
+          <div class="training-text">
+            <div class="training-years"><span class="training-year-end">{{ c.yearEnd }}</span><span class="training-year-range">{{ c.yearRange }}</span></div>
+            <div class="training-uni">{{ c.uni }}</div>
+            <div class="training-title">{{ c.title }}</div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEC 3 · HOW I WORK + PROCEDURES ===== -->
+<section style="padding:36px 22px">
+  <div class="split" style="max-width:1180px;margin:0 auto">
+    <div class="col" style="display:flex;flex-direction:column;gap:34px">
+      <div style="{{ panelStyle }}">{{ panelText }}</div>
+      <div style="order:1">
+        <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#2cafa4;letter-spacing:.08em;margin-bottom:14px">{{ howKicker }}</div>
+        <h2 class="rv" style="font-family:'Ap1955',sans-serif;font-weight:500;color:#295ed1;font-size:clamp(28px,3.6vw,40px);line-height:1.08;margin:0 0 18px">{{ howTitle }}</h2>
+        <p class="rv" style="font-size:16px;line-height:1.62;color:#514a41;margin:0;max-width:44ch">{{ howText }}</p>
+      </div>
+    </div>
+    <div class="col">
+      <div class="rv" style="background:#fff;border:1px solid #ece3d6;border-radius:16px;padding:30px 30px 34px;transition:transform .3s cubic-bezier(.22,.61,.36,1),box-shadow .3s" style-hover="transform:translateY(-3px);box-shadow:0 18px 40px rgba(41,94,209,.10)">
+        <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:#a89b8a;letter-spacing:.06em;margin-bottom:20px">{{ proceduresLabel }}</div>
+        <div style="margin-bottom:22px">
+          <div style="display:inline-block;background:#b5e5cf;color:#1f7d73;font-weight:600;font-size:13px;padding:6px 13px;border-radius:999px;margin-bottom:12px">{{ bariatricLabel }}</div>
+          <sc-for list="{{ bariatricViews }}" as="p" hint-placeholder-count="2">
+            <div onMouseEnter="{{ p.onEnter }}" onMouseLeave="{{ p.onLeave }}" style="display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid #f0e8dc;font-size:15.5px;color:#33302b;cursor:default"><span style="width:6px;height:6px;border-radius:50%;background:#2cafa4;flex:none"></span>{{ p.name }}</div>
+          </sc-for>
+        </div>
+        <div style="margin-bottom:22px">
+          <div style="display:inline-block;background:#e6effc;color:#295ed1;font-weight:600;font-size:13px;padding:6px 13px;border-radius:999px;margin-bottom:12px">{{ generalLabel }}</div>
+          <sc-for list="{{ generalViews }}" as="p" hint-placeholder-count="5">
+            <div onMouseEnter="{{ p.onEnter }}" onMouseLeave="{{ p.onLeave }}" style="display:flex;align-items:center;gap:11px;padding:9px 0;border-bottom:1px solid #f0e8dc;font-size:15.5px;color:#33302b;cursor:default"><span style="width:6px;height:6px;border-radius:50%;background:#4395ec;flex:none"></span>{{ p.name }}</div>
+          </sc-for>
+        </div>
+        <p style="font-style:italic;font-size:14px;color:#7c7368;line-height:1.5;margin:0 0 24px">{{ laparoscopyLine }}</p>
+        <a href="https://wa.me/573107749596" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:9px;background:#295ed1;color:#fff;font-weight:600;font-size:15.5px;padding:14px 24px;border-radius:999px;text-decoration:none;transition:transform .25s cubic-bezier(.22,.61,.36,1),background-color .25s,box-shadow .25s" style-hover="background:#1f4dab;transform:translateY(-2px);box-shadow:0 12px 26px rgba(41,94,209,.28)"><svg viewBox="0 0 448 512" width="18" height="18" fill="currentColor" style="flex:none"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.2-157zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4z"/></svg>{{ ctaMain }} <span style="font-size:17px">↗</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEC 4 · PATIENT CARE (overlay) ===== -->
+<section style="padding:22px 22px">
+  <div style="max-width:1180px;margin:0 auto;position:relative;border-radius:18px;overflow:hidden;background:#1f7d73">
+    <div style="position:absolute;inset:0;background:linear-gradient(150deg,rgba(26,105,97,.88),rgba(16,80,74,.96))"></div>
+    <div class="care-glow"></div>
+    <div style="position:absolute;top:14px;left:16px;font-family:ui-monospace,Menlo,monospace;font-size:10.5px;color:rgba(255,255,255,.62);letter-spacing:.06em">IMG cálida · recuperación con luz cálida · overlay teal</div>
+    <div class="rv" style="position:relative;z-index:2;padding:66px 24px;text-align:center">
+      <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:rgba(255,255,255,.95);letter-spacing:.08em;margin-bottom:18px">{{ careKicker }}</div>
+      <h2 class="care-byside" onClick="{{ careMobileToggle }}">{{ byYourSide }}</h2>
+      <div class="care-moments">
+        <sc-for list="{{ careMoments }}" as="m" hint-placeholder-count="3">
+          <div class="care-moment" onClick="{{ m.onClick }}" onMouseEnter="{{ m.onEnter }}" onMouseLeave="{{ m.onLeave }}">
+            <div class="care-moment-title">{{ m.title }}</div>
+            <span class="{{ m.dotCls }}"></span>
+          </div>
+        </sc-for>
+      </div>
+      <div class="care-desc-wrap">
+        <div class="care-desc-sizer">{{ careSizerText }}</div>
+        <div class="{{ careDefaultCls }}">
+          <p style="font-weight:500;margin:0 0 12px">{{ careIncludes }}</p>
+          <p style="margin:0">{{ careTravel }}</p>
+        </div>
+        <sc-for list="{{ careMoments }}" as="m" hint-placeholder-count="3">
+          <p class="{{ m.descCls }}">{{ m.desc }}</p>
+        </sc-for>
+      </div>
+      <div class="{{ careAccCls }}">
+        <sc-for list="{{ careMoments }}" as="m" hint-placeholder-count="3">
+          <div class="care-acc-item">
+            <div class="care-acc-title">{{ m.title }}</div>
+            <p class="care-acc-desc">{{ m.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <p style="margin:24px auto 0"><a href="#contact" onClick="{{ openCallForm }}" style="color:#fff;font-weight:600;font-size:16px;text-decoration:underline;text-underline-offset:4px;text-decoration-color:rgba(255,255,255,.5)" style-hover="color:#b5e5cf">{{ careQuestion }} <span style="font-size:15px">↗</span></a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEC 5 · TESTIMONIALS (carrusel) ===== -->
+<section style="padding:36px 0 42px">
+  <div style="max-width:1180px;margin:0 auto;padding:0 22px 30px">
+    <h2 class="rv" style="font-family:'Ap1955',sans-serif;font-weight:500;color:#295ed1;font-size:clamp(28px,3.8vw,42px);line-height:1.06;margin:0 0 8px">{{ testiTitle }}</h2>
+    <p style="font-family:'Work Sans',sans-serif;font-style:italic;font-weight:500;font-size:17px;color:#8a8175;margin:0">{{ testiSubtitle }}</p>
+  </div>
+  <div class="testi-row">
+    <div class="testi-photo rv">
+      <sc-for list="{{ photoViews }}" as="ph" hint-placeholder-count="5">
+        <div role="img" aria-label="Dr. Andrés Aponte" style="{{ ph.style }}"></div>
+      </sc-for>
+    </div>
+    <div class="testi-viewport" style="flex:1;min-width:0;padding:0">
+      <div class="testi-track">
+        <sc-for list="{{ testiLoop }}" as="c" hint-placeholder-count="6">
+          <div class="testi-card" style="width:340px;background:#fff;border:1px solid #ece3d6;border-radius:14px;padding:30px 28px 32px;display:flex;flex-direction:column;gap:16px;min-height:200px">
+            <span style="font-family:'Ap1955',sans-serif;font-size:44px;color:#b5e5cf;line-height:.5">“</span>
+            <p style="font-size:16px;color:#514a41;font-style:italic;line-height:1.55;margin:0;flex:1">{{ c }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== SEC 6 · CONTACT ===== -->
+<section id="contact" style="padding:22px 22px 50px">
+  <div class="split top" style="max-width:1180px;margin:0 auto">
+    <div class="col">
+      <h2 class="rv" style="font-family:'Ap1955',sans-serif;font-weight:500;color:#295ed1;font-size:clamp(30px,4.4vw,52px);line-height:1.03;margin:0 0 18px">{{ contactTitle }}</h2>
+      <p style="font-size:16px;line-height:1.6;color:#514a41;margin:0 0 26px;max-width:38ch">{{ contactLead }}</p>
+      <a href="https://wa.me/573107749596" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:10px;background:#295ed1;color:#fff;font-weight:600;font-size:16px;padding:16px 26px;border-radius:999px;text-decoration:none;transition:transform .25s cubic-bezier(.22,.61,.36,1),background-color .25s,box-shadow .25s" style-hover="background:#1f4dab;transform:translateY(-2px);box-shadow:0 12px 26px rgba(41,94,209,.3)"><svg viewBox="0 0 448 512" width="19" height="19" fill="currentColor" style="flex:none"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.2-157zM223.9 438.7c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4z"/></svg>{{ ctaMain }} <span style="font-size:18px">↗</span></a>
+    </div>
+    <div class="col rv" style="display:flex;flex-direction:column;gap:14px">
+
+      <details open ref="{{ callFormRef }}" style="background:#fff;border:1px solid #ece3d6;border-radius:14px;overflow:hidden">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;font-family:'Ap1955',sans-serif;font-size:18px;color:#295ed1;transition:background-color .2s" style-hover="background:#faf6f0">{{ accFormTitle }}<span class="chev" style="font-size:22px;color:#4395ec;transition:transform .25s;line-height:1">+</span></summary>
+        <div class="acc-body" style="padding:0 22px 24px;display:flex;flex-direction:column;gap:12px">
+          <input placeholder="{{ formName }}" style="border:1px solid #e7ddce;background:#faf6f0;border-radius:9px;padding:13px 15px;font-size:14.5px;font-family:inherit;color:#33302b">
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <input placeholder="{{ formCountry }}" style="flex:1;min-width:130px;border:1px solid #e7ddce;background:#faf6f0;border-radius:9px;padding:13px 15px;font-size:14.5px;font-family:inherit;color:#33302b">
+            <input placeholder="{{ formTimezone }}" style="flex:1;min-width:130px;border:1px solid #e7ddce;background:#faf6f0;border-radius:9px;padding:13px 15px;font-size:14.5px;font-family:inherit;color:#33302b">
+          </div>
+          <input placeholder="{{ formInsurance }}" style="border:1px solid #e7ddce;background:#faf6f0;border-radius:9px;padding:13px 15px;font-size:14.5px;font-family:inherit;color:#33302b">
+          <div style="display:flex;gap:12px;flex-wrap:wrap">
+            <input placeholder="{{ formWhatsapp }}" style="flex:1;min-width:130px;border:1px solid #e7ddce;background:#faf6f0;border-radius:9px;padding:13px 15px;font-size:14.5px;font-family:inherit;color:#33302b">
+            <input placeholder="{{ formEmail }}" style="flex:1;min-width:130px;border:1px solid #e7ddce;background:#faf6f0;border-radius:9px;padding:13px 15px;font-size:14.5px;font-family:inherit;color:#33302b">
+          </div>
+          <textarea placeholder="{{ formResolve }}" rows="3" style="border:1px solid #e7ddce;background:#faf6f0;border-radius:9px;padding:13px 15px;font-size:14.5px;font-family:inherit;color:#33302b;resize:vertical"></textarea>
+          <button type="button" style="align-self:flex-start;background:#295ed1;color:#fff;font-weight:600;font-size:15px;padding:13px 24px;border:none;border-radius:999px;cursor:pointer;transition:transform .25s cubic-bezier(.22,.61,.36,1),background-color .25s,box-shadow .25s" style-hover="background:#1f4dab;transform:translateY(-2px);box-shadow:0 10px 22px rgba(41,94,209,.26)">{{ formSubmit }}</button>
+        </div>
+      </details>
+
+      <details style="background:#fff;border:1px solid #ece3d6;border-radius:14px;overflow:hidden">
+        <summary style="display:flex;align-items:center;justify-content:space-between;gap:16px;padding:20px 22px;font-family:'Ap1955',sans-serif;font-size:18px;color:#295ed1;transition:background-color .2s" style-hover="background:#faf6f0">{{ accDataTitle }}<span class="chev" style="font-size:22px;color:#4395ec;transition:transform .25s;line-height:1">+</span></summary>
+        <div class="acc-body" style="padding:0 22px 24px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;align-items:center;gap:12px"><span style="width:32px;height:32px;border-radius:6px;background:#b5e5cf;flex:none"></span><div><div style="font-size:12px;color:#a89b8a">WhatsApp</div><div style="font-size:15px;color:#33302b">+57 310 774 9596</div></div></div>
+          <div style="display:flex;align-items:center;gap:12px"><span style="width:32px;height:32px;border-radius:6px;background:#e6effc;flex:none"></span><div><div style="font-size:12px;color:#a89b8a">{{ labelEmail }}</div><div style="font-size:15px;color:#33302b">info@drandres.com</div></div></div>
+          <div style="display:flex;align-items:center;gap:12px"><span style="width:32px;height:32px;border-radius:6px;background:#b5e5cf;flex:none"></span><div><div style="font-size:12px;color:#a89b8a">{{ labelLocation }}</div><div style="font-size:15px;color:#33302b">Bogotá / Cali, Colombia</div></div></div>
+          <div style="display:flex;align-items:center;gap:12px"><span style="width:32px;height:32px;border-radius:6px;background:#e6effc;flex:none"></span><div><div style="font-size:12px;color:#a89b8a">{{ labelHours }}</div><div style="font-size:15px;color:#33302b">{{ hoursValue }}</div></div></div>
+        </div>
+      </details>
+
+    </div>
+  </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer style="background:#295ed1;color:#fff;padding:44px 22px">
+  <div style="max-width:1180px;margin:0 auto;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between">
+    <div style="display:flex;align-items:center;gap:{{ footerLogoGap }}">
+      <div style="width:44px;height:44px;display:flex;align-items:center;justify-content:center;flex:none"><img src="assets/logo-icon-white.png" alt="Dr. Andrés Aponte" style="width:44px;height:44px;object-fit:contain;display:block"></div>
+      <div>
+        <div style="font-family:'Ap1955',sans-serif;font-size:16px">Dr. Andrés Aponte</div>
+        <div style="font-size:12.5px;color:rgba(255,255,255,.7)">Bogotá / Cali, Colombia</div>
+      </div>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:22px;align-items:center;font-size:13.5px;color:rgba(255,255,255,.85)">
+      <span>+57 310 774 9596</span>
+      <span>info@drandres.com</span>
+      <span>{{ footerPrivacy }}</span>
+      <div style="display:flex;gap:8px">
+        <span style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.16)"></span>
+        <span style="width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.16)"></span>
+      </div>
+    </div>
+  </div>
+</footer>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;headerLogoGap&quot;: {&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:6,&quot;min&quot;:0,&quot;max&quot;:20,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Encabezado&quot;},
+  &quot;headerIconSize&quot;: {&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:44,&quot;min&quot;:32,&quot;max&quot;:60,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Encabezado&quot;},
+  &quot;footerLogoGap&quot;: {&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:6,&quot;min&quot;:0,&quot;max&quot;:20,&quot;step&quot;:1,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Pie de página&quot;}
+}">
+class Component extends DCLogic {
+  state = { lang: 'en', prog: 0, cbOpen: false, photoIdx: 0, hoverIdx: -1, careHover: null, carePinned: null, careMobileOpen: false };
+  statsRef = (el) => { this.statsWrap = el; };
+  callFormRef = (el) => { this.callForm = el; };
+  _ease = (t) => 1 - Math.pow(1 - t, 3);
+
+  componentDidMount() {
+    if (this.callForm) this.callForm.open = true;
+    this._photoTimer = setInterval(() => this.setState({ photoIdx: (this.state.photoIdx + 1) % 5 }), 9200);
+    if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { this.setState({ prog: 1 }); return; }
+    const start = () => this.runCount();
+    if (this.statsWrap && 'IntersectionObserver' in window) {
+      this.io = new IntersectionObserver((es) => { es.forEach(e => {
+        if (e.isIntersecting) { this.runCount(); }
+        else { this._counting = false; if (this._raf) { cancelAnimationFrame(this._raf); this._raf = null; } this.setState({ prog: 0 }); }
+      }); }, { threshold: 0.25 });
+      this.io.observe(this.statsWrap);
+    } else { start(); }
+  }
+  componentWillUnmount() { if (this.io) this.io.disconnect(); if (this._fb) clearTimeout(this._fb); if (this._raf) cancelAnimationFrame(this._raf); if (this._photoTimer) clearInterval(this._photoTimer); }
+  runCount() {
+    if (this._counting) return; this._counting = true;
+    if (this._fb) { clearTimeout(this._fb); this._fb = null; }
+    const dur = 1200, t0 = performance.now();
+    const tick = (now) => {
+      const p = Math.min(1, (now - t0) / dur);
+      this.setState({ prog: p });
+      if (p < 1) this._raf = requestAnimationFrame(tick);
+    };
+    this._raf = requestAnimationFrame(tick);
+  }
+
+  copy = {
+    en: {
+      headerSub: 'General & bariatric surgery', ctaHeader: 'Book your consultation', ctaMain: 'Book your consultation',
+      heroLocation: 'Bogotá · Cali',
+      heroProfession: 'General & bariatric surgery',
+      heroTitle: 'You deserve the change you want and an honest path to reach it.',
+      heroSub: "I'll be with you through it all: before, during, and after.",
+      heroSecondaryShort: 'Prefer a call?', heroSecondaryMore: 'Tell me your case',
+      videoReserved: 'VIDEO (motion) · reserved space',
+      purposeKicker: 'MY PURPOSE',
+      purposeText: 'My purpose is to change the course of each patient\u2019s health through surgery, without losing sight of the person behind every decision.',
+      exp2Kicker: 'EXPERIENCE & BACKING',
+      experienceText: "I've done this for over 10 years as a general and bariatric surgeon, and in the classroom too: as a faculty member at 3 university hospitals where I teach future surgeons.",
+      reservedTraining: 'Training & memberships (reserved)',
+      certs: [
+        { year: '2026', month: '2026–2027', uni: 'Universidad Militar Nueva Granada', title: 'Specialization in education', logo: 'assets/logo-militar.png' },
+        { year: '2025', month: '06/25', uni: 'Universidad de la Sabana', title: 'Diploma in clinical simulation for learning assurance and research', logo: 'assets/logo-sabana.png' },
+        { year: '2024', month: '12/24', uni: 'Universidad de la Sabana', title: 'Diploma in surgical leadership', logo: 'assets/logo-sabana.png' },
+        { year: '2022', month: '07/2022', uni: 'PANTHER · Hospital Almario, Salvador de Bahía, Brasil', title: 'Bariatric surgery immersion', logo: 'assets/logo-panther.png' },
+        { year: '2026', month: '2021, 2024, 2025, 2026 (in progress)', uni: 'Capítulo Argentino de IHPBA', title: 'Diploma in hepatopancreatobiliary surgery', logo: 'assets/logo-ihpba.png' },
+        { year: '2021', month: '2016–2021', uni: 'Pontificia Universidad Javeriana, Bogotá', title: 'Specialization in General Surgery', logo: 'assets/logo-javeriana.png' },
+        { year: '2015', month: '2010–2015', uni: 'Pontificia Universidad Javeriana, Bogotá', title: 'General Medicine and Surgeon', logo: 'assets/logo-javeriana.png' }
+      ],
+      procDesc: [
+        'A portion of the stomach is removed, leaving a narrow vertical tube. This changes both capacity and satiety signals. It is not reversible and requires sustained nutritional follow-up.',
+        'A small gastric pouch is created and the intestine is reconnected so part of the digestive route is bypassed. It is often considered when reflux or type 2 diabetes are also present.',
+        'Removal of the gallbladder when stones cause pain, inflammation or obstruction. In most cases it is done laparoscopically, through small incisions.',
+        'Repair of the defect in the abdominal wall where tissue protrudes. The area is reinforced, usually with mesh, to lower the chance of it coming back.',
+        'Correction of the upward displacement of the stomach into the chest and reinforcement of the mechanism that keeps acid from rising. Considered when symptoms persist despite medical treatment.',
+        'Removal of benign skin and soft-tissue lesions. It is an outpatient procedure; when appropriate, the lesion is sent for pathology study.',
+        'Resection of non-cancerous lesions of the digestive tract. The approach depends on size and location, and aims to preserve as much healthy tissue as possible.'
+      ],
+      certStripLabel: 'TRAINING & INSTITUTIONAL BACKING',
+      stats: [
+        { label: 'Years in surgery', value: '+10', num: 10, prefix: '+', suffix: '' },
+        { label: 'Bariatric surgeries', value: '+150', num: 150, prefix: '+', suffix: '', sub: 'as lead surgeon' },
+        { label: 'General surgeries', value: '+4,000', num: 4000, prefix: '+', suffix: '', sub: '& emergency and minimally invasive. Thousands of hours in the OR behind every decision.' },
+        { label: 'Assisted bariatric surgeries', value: '~1,250', num: 1250, prefix: '~', suffix: '', sub: 'as an assistant, trained alongside an expert team' }
+      ],
+      howKicker: 'HOW I WORK', howTitle: 'We decide together',
+      howText: 'I explain your options clearly, based on your case. I bring my experience and judgment to the table; we make the decision with you, so you choose with confidence and know exactly what to expect at every stage.',
+      proceduresLabel: 'PROCEDURES', bariatricLabel: 'Bariatric surgery', generalLabel: 'General surgery',
+      bariatricItems: ['Gastric sleeve', 'Gastric bypass'],
+      generalItems: ['Gallbladder & bile duct stones', 'Hernias (umbilical & inguinal)', 'Acid reflux & hiatal hernia', 'Lipomas, cysts & skin lesions', 'Benign stomach & intestinal tumors'],
+      laparoscopyLine: 'Most procedures are performed laparoscopically: minimally invasive, with faster recovery.',
+      careKicker: 'PATIENT CARE',
+      byYourSide: 'By your side:', before: 'Before', during: 'During', after: 'After the procedure',
+      beforeDesc: "With Dr. Andrés Aponte you're not alone from the very first message. A bilingual coordinator answers you, resolves your questions with no commitment, and schedules your video consultation with the surgeon. In that call you'll know whether you're a candidate, which surgical option fits your case, and what to expect. We then coordinate tests, travel, lodging, and transfers.",
+      duringDesc: "On the day of your surgery you're in the hands of a specialized team, at an accredited institution, with support in your language before, during, and after the procedure. We look after every detail of your immediate recovery.",
+      afterDesc: "Your process doesn't end when you leave the operating room. We follow you with medical check-ups through the entire first year, wherever you are, through remote consultations. If you'd like, we add a personalized nutrition plan and psychological support.",
+      careStatement: 'By your side: before, during and after the procedure',
+      careQuestion: 'Have a question? Write it and tell me about your case',
+      careIncludes: 'Includes: remote follow-up and coordination with your doctor when you return to your city/country.',
+      careTravel: "For out-of-town patients, traveling for your surgery is a big decision. That's why I make sure you're supported at every stage, including once you're back home.",
+      reservedCare: 'Content to detail with Andrés (reserved)',
+      testiTitle: 'Patient stories', testiSubtitle: "Our patients' experiences",
+      testiCards: ['Testimonials coming soon, with patient consent.', 'Testimonials coming soon, with patient consent.', 'Testimonials coming soon, with patient consent.', 'Testimonials coming soon, with patient consent.', 'Testimonials coming soon, with patient consent.'],
+      contactTitle: 'Contact', contactLead: 'Message us directly and we will reply within one hour during business hours.',
+      accFormTitle: 'Prefer a call? Tell me about your case',
+      formName: 'Name', formCountry: 'Country', formTimezone: 'Time zone', formInsurance: 'Medical insurance (if applicable)', formWhatsapp: 'WhatsApp', formEmail: 'Email', formResolve: 'What would you like to resolve?', formSubmit: 'Request my call',
+      accDataTitle: 'Contact details', labelEmail: 'Email', labelLocation: 'Location', labelHours: 'Hours', hoursValue: 'Mon–Fri, # (GMT-5)',
+      footerPrivacy: 'Privacy'
+    },
+    es: {
+      headerSub: 'Cirugía general y bariátrica', ctaHeader: 'Agenda tu valoración', ctaMain: 'Agenda tu valoración',
+      heroLocation: 'Bogotá · Cali',
+      heroProfession: 'Cirugía general y bariátrica',
+      heroTitle: 'Mereces el cambio que buscas, y la verdad sobre cómo alcanzarlo.',
+      heroSub: 'Te acompaño en todo el proceso: antes, durante y después.',
+      heroSecondaryShort: '¿Prefieres que te llamemos?', heroSecondaryMore: 'Cuéntame tu caso',
+      videoReserved: 'VIDEO (motion) · espacio reservado',
+      purposeKicker: 'MI PROPÓSITO',
+      purposeText: 'Mi propósito es cambiar el curso de la salud de cada paciente a través de la cirugía, sin dejar de ver a la persona que hay detrás de cada decisión.',
+      exp2Kicker: 'EXPERIENCIA Y RESPALDO',
+      experienceText: 'Lo hago desde hace más de 10 años como cirujano general y bariátrico, y desde las aulas: como profesor en 3 hospitales universitarios donde formo a los futuros cirujanos.',
+      reservedTraining: 'Formación y membresías (reservada)',
+      certs: [
+        { year: '2026', month: '2026–2027', uni: 'Universidad Militar Nueva Granada', title: 'Especialización en educación', logo: 'assets/logo-militar.png' },
+        { year: '2025', month: '06/25', uni: 'Universidad de la Sabana', title: 'Diplomado en simulación clínica para el aseguramiento del aprendizaje y la investigación', logo: 'assets/logo-sabana.png' },
+        { year: '2024', month: '12/24', uni: 'Universidad de la Sabana', title: 'Diplomado en liderazgo quirúrgico', logo: 'assets/logo-sabana.png' },
+        { year: '2022', month: '07/2022', uni: 'PANTHER · Hospital Almario, Salvador de Bahía, Brasil', title: 'Inmersión en cirugía bariátrica', logo: 'assets/logo-panther.png' },
+        { year: '2026', month: '2021, 2024, 2025, 2026 (cursando)', uni: 'Capítulo Argentino de IHPBA', title: 'Diplomado en cirugía hepatopancreatobiliar', logo: 'assets/logo-ihpba.png' },
+        { year: '2021', month: '2016–2021', uni: 'Pontificia Universidad Javeriana, Bogotá', title: 'Especialización en Cirugía General', logo: 'assets/logo-javeriana.png' },
+        { year: '2015', month: '2010–2015', uni: 'Pontificia Universidad Javeriana, Bogotá', title: 'Medicina General y Cirujano', logo: 'assets/logo-javeriana.png' }
+      ],
+      procDesc: [
+        'Se reduce el tamaño del estómago retirando una porción y dejando un tubo vertical. Cambia la capacidad y las señales de saciedad. No es reversible y exige acompañamiento nutricional sostenido.',
+        'Se crea un reservorio gástrico pequeño y se reconecta el intestino para que parte del recorrido digestivo se omita. Suele evaluarse cuando hay reflujo o diabetes tipo 2 asociados.',
+        'Extracción de la vesícula cuando los cálculos generan dolor, inflamación u obstrucción. En la mayoría de los casos se hace por laparoscopia, con incisiones pequeñas.',
+        'Reparación del defecto en la pared abdominal por donde protruye tejido. Se refuerza la zona, en general con malla, para reducir el riesgo de que reaparezca.',
+        'Corrección del ascenso del estómago hacia el tórax y refuerzo del mecanismo que impide que el ácido suba. Se evalúa cuando los síntomas persisten pese al tratamiento médico.',
+        'Extirpación de lesiones benignas de piel y tejido blando. Es un procedimiento ambulatorio; cuando corresponde, la lesión se envía a estudio patológico.',
+        'Resección de lesiones no cancerosas del tubo digestivo. El abordaje depende del tamaño y la ubicación, y busca conservar la mayor cantidad de tejido sano posible.'
+      ],
+      certStripLabel: 'FORMACIÓN Y RESPALDO INSTITUCIONAL',
+      stats: [
+        { label: 'Años en cirugía', value: '+10', num: 10, prefix: '+', suffix: '' },
+        { label: 'Cirugías bariátricas', value: '+150', num: 150, prefix: '+', suffix: '', sub: 'como cirujano principal' },
+        { label: 'Cirugías generales', value: '+4.000', num: 4000, prefix: '+', suffix: '', sub: '& de urgencia y mínimamente invasivas. Miles de horas de quirófano que respaldan cada decisión.' },
+        { label: 'Cirugías bariátricas asistidas', value: '~1.250', num: 1250, prefix: '~', suffix: '', sub: 'como asistente, junto a un equipo experto' }
+      ],
+      howKicker: 'CÓMO TRABAJO', howTitle: 'Decidimos juntos',
+      howText: 'Te explico con claridad las posibilidades según tu caso. Yo pongo sobre la mesa mi experiencia y criterio; la decisión la tomamos contigo, para que elijas con confianza y sepas exactamente qué esperar en cada etapa.',
+      proceduresLabel: 'PROCEDIMIENTOS', bariatricLabel: 'Cirugía bariátrica', generalLabel: 'Cirugía general',
+      bariatricItems: ['Manga gástrica', 'Bypass gástrico'],
+      generalItems: ['Vesícula y vías biliares (cálculos)', 'Hernias (umbilical e inguinal)', 'Reflujo y hernia hiatal', 'Lipomas, quistes y lesiones de piel', 'Tumores benignos de estómago e intestino'],
+      laparoscopyLine: 'La mayoría por laparoscopia: mínimamente invasiva, con recuperación más rápida.',
+      careKicker: 'ACOMPAÑAMIENTO',
+      byYourSide: 'Contigo en cada paso:', before: 'Antes', during: 'Durante', after: 'Después del procedimiento',
+      beforeDesc: "Con Dr. Andrés Aponte no estás solo desde el primer mensaje. Un coordinador bilingüe te responde, resuelve tus dudas sin compromiso y agenda tu videollamada con el cirujano. En esa consulta sabrás si eres candidato, qué opción se ajusta a tu caso y qué esperar. Después coordinamos exámenes, viaje, hospedaje y traslados.",
+      duringDesc: "El día de tu cirugía estás en manos de un equipo especializado, en una institución avalada, con acompañamiento en tu idioma antes, durante y después del procedimiento. Cuidamos cada detalle de tu recuperación inmediata.",
+      afterDesc: "Tu proceso no termina al salir del quirófano. Te acompañamos con controles médicos durante todo el primer año, estés en la ciudad o país que estés, con consultas a distancia. Si lo deseas, sumamos plan de nutrición personalizado y acompañamiento psicológico.",
+      careStatement: 'Acompañamiento: antes, durante y después del procedimiento',
+      careQuestion: '¿Tienes una pregunta? Escríbela y cuéntame tu caso',
+      careIncludes: 'Incluye: seguimiento remoto y coordinación con tu médico al volver a tu ciudad/país.',
+      careTravel: 'Para pacientes de otras ciudades, viajar para tu cirugía es una decisión grande. Por eso me aseguro de que estés acompañado en cada etapa, también al regresar.',
+      reservedCare: 'Contenido a detallar con Andrés (reservado)',
+      testiTitle: 'Testimonios', testiSubtitle: 'Experiencias de nuestros pacientes',
+      testiCards: ['Testimonios próximamente, con consentimiento del paciente.', 'Testimonios próximamente, con consentimiento del paciente.', 'Testimonios próximamente, con consentimiento del paciente.', 'Testimonios próximamente, con consentimiento del paciente.', 'Testimonios próximamente, con consentimiento del paciente.'],
+      contactTitle: 'Contacto', contactLead: 'Escríbenos directamente y te respondemos en menos de una hora en horario laboral.',
+      accFormTitle: '¿Prefieres que te llamemos? Cuéntame tu caso',
+      formName: 'Nombre', formCountry: 'País', formTimezone: 'Zona horaria', formInsurance: 'Seguro médico (si aplica)', formWhatsapp: 'WhatsApp', formEmail: 'Correo', formResolve: '¿Qué te gustaría resolver?', formSubmit: 'Solicitar mi llamada',
+      accDataTitle: 'Datos de contacto', labelEmail: 'Correo', labelLocation: 'Ubicación', labelHours: 'Horario', hoursValue: 'Lun–Vie, # (GMT-5)',
+      footerPrivacy: 'Privacidad'
+    }
+  };
+
+  renderVals() {
+    const t = this.copy[this.state.lang];
+    const locale = this.state.lang === 'es' ? 'es-CO' : 'en-US';
+    const p = this._ease(this.state.prog);
+    const statViews = t.stats.map((s) => ({ label: s.label, sub: s.sub || '', display: this.state.prog >= 1 ? s.value : (s.num != null ? s.prefix + Math.round(s.num * p).toLocaleString(locale) + s.suffix : s.value) }));
+    const testiLoop = t.testiCards.concat(t.testiCards);
+    const certLoop = t.certs.concat(t.certs).map((c) => {
+      const hasLogo = !!c.logo && c.logo !== '#';
+      const m = /^(\d{4})[–\-](\d{4})$/.exec((c.month || '').trim());
+      let yearStart = '';
+      if (m) { const earlier = Math.min(+m[1], +m[2]); if (earlier < +c.year) yearStart = String(earlier); }
+      return {
+        yearEnd: c.year,
+        yearRange: yearStart ? '–' + yearStart : '',
+        uni: c.uni, title: c.title,
+        logo: hasLogo ? c.logo : ''
+      };
+    });
+    const headerLogoGap = (this.props.headerLogoGap ?? 6) + 'px';
+    const headerIconPx = (this.props.headerIconSize ?? 44) + 'px';
+    const footerLogoGap = (this.props.footerLogoGap ?? 6) + 'px';
+    const photos = ['assets/story-1.jpg', 'assets/story-2.jpg', 'assets/story-3.jpg', 'assets/story-4.jpg', 'assets/story-5.jpg'];
+    const photoViews = photos.map((src, i) => ({ src, style: { position: 'absolute', inset: 0, width: '100%', height: '100%', backgroundImage: 'url("' + src + '")', backgroundSize: 'cover', backgroundPosition: 'center 38%', backgroundRepeat: 'no-repeat', display: 'block', opacity: i === this.state.photoIdx ? 1 : 0, transition: 'opacity .7s ease' } }));
+    const hi = this.state.hoverIdx;
+    const careActive = this.state.carePinned || this.state.careHover;
+    const isMobileCare = () => window.matchMedia && window.matchMedia('(max-width:720px)').matches;
+    const careMoments = ['before','during','after'].map((k) => ({
+      key: k, title: t[k], desc: t[k + 'Desc'],
+      dotCls: 'care-dot' + (careActive === k ? ' care-dot--active' : ''),
+      descCls: 'care-desc' + (careActive === k ? ' is-shown' : ''),
+      onEnter: () => { if (this.state.carePinned || isMobileCare()) return; this.setState({ careHover: k }); },
+      onLeave: () => { if (this.state.carePinned || isMobileCare()) return; this.setState({ careHover: null }); },
+      onClick: (e) => { if (e && e.preventDefault) e.preventDefault(); if (isMobileCare()) return; this.setState(this.state.carePinned === k ? { carePinned: null } : { carePinned: k, careHover: null }); }
+    }));
+    const careDefaultCls = 'care-desc care-desc--default' + (!careActive ? ' is-shown' : '');
+    const careAccCls = 'care-accordion' + (this.state.careMobileOpen ? ' is-open' : '');
+    const careMobileToggle = (e) => { if (e && e.preventDefault) e.preventDefault(); if (!isMobileCare()) return; this.setState({ careMobileOpen: !this.state.careMobileOpen }); };
+    const careSizerText = ['before','during','after'].reduce((a,k)=>{ [this.copy.en[k+'Desc'], this.copy.es[k+'Desc']].forEach(x=>{ if(x && x.length>a.length) a=x; }); return a; }, '');
+    const mk = (name, idx) => ({ name, onEnter: () => this.setState({ hoverIdx: idx }), onLeave: () => this.setState({ hoverIdx: -1 }) });
+    const bariatricViews = t.bariatricItems.map((n, i) => mk(n, i));
+    const generalViews = t.generalItems.map((n, i) => mk(n, i + 2));
+    const panelText = hi >= 0 ? t.procDesc[hi] : '';
+    const panelStyle = { order: (hi >= 0 && hi < 2) ? 0 : 2, background: '#fff', border: '1px solid #ece3d6', borderRadius: '16px', padding: '26px 28px', minHeight: '150px', display: 'flex', alignItems: 'center', fontSize: '15.5px', lineHeight: '1.6', color: '#514a41', opacity: hi >= 0 ? 1 : 0, transition: 'opacity .35s ease' };
+    const active = { background: '#295ed1', color: '#fff', border: 'none', borderRadius: '999px', padding: '7px 14px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' };
+    const idle = { background: 'transparent', color: '#7c7368', border: 'none', borderRadius: '999px', padding: '7px 14px', fontSize: '13px', fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit' };
+    return {
+      ...t,
+      lang: this.state.lang,
+      setEN: () => this.setState({ lang: 'en' }),
+      setES: () => this.setState({ lang: 'es' }),
+      enBtn: this.state.lang === 'en' ? active : idle,
+      esBtn: this.state.lang === 'es' ? active : idle,
+      statViews,
+      testiLoop,
+      certLoop,
+      headerLogoGap,
+      headerIconPx,
+      footerLogoGap,
+      photoViews,
+      bariatricViews,
+      generalViews,
+      panelText,
+      panelStyle,
+      careMoments,
+      careDefaultCls,
+      careAccCls,
+      careMobileToggle,
+      careSizerText,
+      videoRef: (el) => {
+        if (!el || el.__wired) return;
+        el.__wired = true;
+        el.muted = true; el.defaultMuted = true; el.loop = true; el.playsInline = true;
+        if (window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches) { try { el.pause(); } catch (e) {} return; }
+        const p = el.play(); if (p && p.catch) p.catch(() => {});
+      },
+      statsRef: this.statsRef,
+      callFormRef: this.callFormRef,
+      openCallForm: (e) => {
+        if (e && e.preventDefault) e.preventDefault();
+        if (this.callForm) this.callForm.open = true;
+        const c = document.getElementById('contact');
+        if (c) { const y = c.getBoundingClientRect().top + window.pageYOffset - 76; window.scrollTo({ top: y, behavior: 'smooth' }); }
+      },
+      frameRef: (el) => {
+        if (!el || el.__rvWired) return;
+        el.__rvWired = true;
+        if (!('IntersectionObserver' in window)) { el.classList.add('is-in'); return; }
+        const io = new IntersectionObserver((es) => { es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('is-in'); io.disconnect(); } }); }, { threshold: 0.35 });
+        io.observe(el);
+      },
+      cbRef: (el) => {
+        if (!el || el.__cbWired) return;
+        el.__cbWired = true;
+        const rev = el.querySelector('[data-reveal]');
+        const apply = (open) => {
+          el.style.background = open ? '#295ed1' : 'transparent';
+          el.style.color = open ? '#fff' : '#295ed1';
+          el.style.transform = open ? 'translateY(-2px)' : 'none';
+          if (rev) { rev.style.maxWidth = open ? '240px' : '0px'; rev.style.opacity = open ? '1' : '0'; rev.style.marginLeft = open ? '0.34em' : '0px'; }
+        };
+        el.addEventListener('mouseenter', () => apply(true));
+        el.addEventListener('mouseleave', () => apply(false));
+        el.addEventListener('focus', () => apply(true));
+        el.addEventListener('blur', () => apply(false));
+      },
+      cbBtnStyle: {
+        display: 'inline-flex', alignItems: 'center',
+        border: '1.5px solid #295ed1',
+        color: '#295ed1', background: 'transparent',
+        fontWeight: 600, fontSize: '15px', padding: '14px 22px',
+        borderRadius: '999px', textDecoration: 'none',
+        transition: 'transform .25s cubic-bezier(.22,.61,.36,1), background-color .25s, color .25s'
+      },
+      cbRevealStyle: {
+        display: 'inline-block', overflow: 'hidden', whiteSpace: 'nowrap',
+        maxWidth: '0px', opacity: 0, marginLeft: '0px',
+        transition: 'max-width .45s cubic-bezier(.22,.61,.36,1), opacity .3s ease, margin-left .45s cubic-bezier(.22,.61,.36,1)'
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
