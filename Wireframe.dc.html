@@ -78,20 +78,25 @@ details[open] .acc-body{animation:accIn .4s ease both}
 .care-title{text-wrap:balance}
 @media(min-width:820px){.care-title{white-space:nowrap}}
 .care-byside{font-family:'Ap1955',sans-serif;font-weight:500;color:#fff;font-size:clamp(22px,3vw,36px);line-height:1.14;margin:0 auto 22px}
-.care-moments{display:flex;justify-content:center;align-items:flex-start;gap:clamp(26px,6vw,64px);margin:0 auto 26px;flex-wrap:wrap}
-.care-moment{cursor:pointer;text-align:center;padding:2px 6px}
-.care-moment-title{font-family:'Ap1955',sans-serif;font-weight:500;color:#fff;font-size:clamp(17px,2.2vw,22px);line-height:1.1}
-.care-dot{width:12px;height:12px;border-radius:50%;background:#2cafa4;margin:.75rem auto 0}
-.care-moment:nth-child(1) .care-dot{animation-delay:0s}
-.care-moment:nth-child(2) .care-dot{animation-delay:.2s}
-.care-moment:nth-child(3) .care-dot{animation-delay:.4s}
+.care-track{position:relative;display:flex;justify-content:center;max-width:560px;margin:0 auto 14px}
+.care-line{position:absolute;left:16.67%;right:16.67%;bottom:17px;height:2px;background:rgba(255,255,255,.28);z-index:0}
+.care-node{flex:1;min-width:0;cursor:pointer;display:flex;flex-direction:column;justify-content:space-between;align-items:center;min-height:96px;position:relative;z-index:1;padding:0 4px}
+.care-node-title{font-family:'Ap1955',sans-serif;font-weight:500;color:#fff;font-size:clamp(16px,2vw,21px);line-height:1.15;text-align:center}
+.care-node-dotarea{position:relative;width:34px;height:34px;display:flex;align-items:center;justify-content:center}
+.care-destello{position:absolute;top:50%;left:50%;width:46px;height:46px;transform:translate(-50%,-50%);border-radius:50%;background:radial-gradient(closest-side,rgba(143,212,200,.9),rgba(143,212,200,0) 72%);opacity:0;pointer-events:none;z-index:0}
+.care-node--active .care-destello{opacity:1;animation:destelloPulse 4.2s ease-in-out infinite}
+@keyframes destelloPulse{0%{transform:translate(-50%,-50%) scale(1);opacity:.55}10%{transform:translate(-50%,-50%) scale(1.28);opacity:1}20%{transform:translate(-50%,-50%) scale(1.05);opacity:.6}30%{transform:translate(-50%,-50%) scale(1.2);opacity:.85}42%{transform:translate(-50%,-50%) scale(1);opacity:.55}100%{transform:translate(-50%,-50%) scale(1);opacity:.55}}
+.care-dot{position:relative;z-index:1;width:12px;height:12px;border-radius:50%;background:#2cafa4}
 @keyframes heartbeat{0%{transform:scale(1)}14%{transform:scale(1.25)}28%{transform:scale(1)}42%{transform:scale(1.18)}56%{transform:scale(1)}100%{transform:scale(1)}}
-@media(prefers-reduced-motion:no-preference){.care-dot{animation:heartbeat 1.6s ease-in-out infinite}}
+@media(prefers-reduced-motion:no-preference){.care-dot--beat{animation:heartbeat 1.6s ease-in-out infinite}}
+@media(prefers-reduced-motion:reduce){.care-node--active .care-destello{animation:none;opacity:.7}}
 .care-dot--active{background:#295ed1!important;animation-play-state:paused!important}
-.care-desc-wrap{position:relative;max-width:600px;margin:0 auto;text-align:left}
+.care-desc-wrap{position:relative;max-width:600px;margin:0 auto;text-align:left;max-height:0;overflow:hidden;transition:max-height .35s ease,margin .35s ease}
+.care-desc-wrap.is-open{max-height:200px;margin:0 auto 12px}
 .care-desc-sizer{color:transparent;font-size:15px;line-height:1.6;margin:0;pointer-events:none}
 .care-desc{position:absolute;left:0;right:0;top:0;opacity:0;visibility:hidden;transition:opacity .2s ease,visibility .2s ease;color:#fff;font-size:15px;line-height:1.6;margin:0}
 .care-desc.is-shown{opacity:1;visibility:visible}
+.care-fixed{max-width:600px;margin:0 auto;text-align:left;color:#fff;font-size:15px;line-height:1.6}
 .care-accordion{display:none;text-align:left;max-width:600px;margin:0 auto;overflow:hidden;max-height:0;transition:max-height .5s ease}
 .care-accordion.is-open{max-height:1400px}
 .care-acc-item{margin-bottom:16px}
@@ -272,23 +277,27 @@ details[open] .acc-body{animation:accIn .4s ease both}
     <div class="rv" style="position:relative;z-index:2;padding:66px 24px;text-align:center">
       <div style="font-family:ui-monospace,Menlo,monospace;font-size:11px;color:rgba(255,255,255,.95);letter-spacing:.08em;margin-bottom:18px">{{ careKicker }}</div>
       <h2 class="care-byside" onClick="{{ careMobileToggle }}">{{ byYourSide }}</h2>
-      <div class="care-moments">
+      <div class="care-track">
+        <span class="care-line"></span>
         <sc-for list="{{ careMoments }}" as="m" hint-placeholder-count="3">
-          <div class="care-moment" onClick="{{ m.onClick }}" onMouseEnter="{{ m.onEnter }}" onMouseLeave="{{ m.onLeave }}">
-            <div class="care-moment-title">{{ m.title }}</div>
-            <span class="{{ m.dotCls }}"></span>
+          <div class="{{ m.nodeCls }}" onClick="{{ m.onClick }}" onMouseEnter="{{ m.onEnter }}" onMouseLeave="{{ m.onLeave }}">
+            <div class="care-node-title">{{ m.title }}</div>
+            <div class="care-node-dotarea">
+              <span class="care-destello"></span>
+              <span class="{{ m.dotCls }}"></span>
+            </div>
           </div>
         </sc-for>
       </div>
-      <div class="care-desc-wrap">
+      <div class="{{ careWrapCls }}">
         <div class="care-desc-sizer">{{ careSizerText }}</div>
-        <div class="{{ careDefaultCls }}">
-          <p style="font-weight:500;margin:0 0 12px">{{ careIncludes }}</p>
-          <p style="margin:0">{{ careTravel }}</p>
-        </div>
         <sc-for list="{{ careMoments }}" as="m" hint-placeholder-count="3">
           <p class="{{ m.descCls }}">{{ m.desc }}</p>
         </sc-for>
+      </div>
+      <div class="care-fixed">
+        <p style="font-weight:500;margin:0 0 12px">{{ careIncludes }}</p>
+        <p style="margin:0">{{ careTravel }}</p>
       </div>
       <div class="{{ careAccCls }}">
         <sc-for list="{{ careMoments }}" as="m" hint-placeholder-count="3">
@@ -582,15 +591,19 @@ class Component extends DCLogic {
     const hi = this.state.hoverIdx;
     const careActive = this.state.carePinned || this.state.careHover;
     const isMobileCare = () => window.matchMedia && window.matchMedia('(max-width:720px)').matches;
-    const careMoments = ['before','during','after'].map((k) => ({
+    const careActiveKey = careActive || 'before';
+    const careActiveIdx = ['before','during','after'].indexOf(careActiveKey);
+    const careMoments = ['before','during','after'].map((k, i) => ({
       key: k, title: t[k], desc: t[k + 'Desc'],
-      dotCls: 'care-dot' + (careActive === k ? ' care-dot--active' : ''),
+      nodeCls: 'care-node' + (careActiveKey === k ? ' care-node--active' : ''),
+      dotCls: 'care-dot' + (careActive === k ? ' care-dot--active' : '') + (i === careActiveIdx + 1 ? ' care-dot--beat' : ''),
       descCls: 'care-desc' + (careActive === k ? ' is-shown' : ''),
       onEnter: () => { if (this.state.carePinned || isMobileCare()) return; this.setState({ careHover: k }); },
       onLeave: () => { if (this.state.carePinned || isMobileCare()) return; this.setState({ careHover: null }); },
       onClick: (e) => { if (e && e.preventDefault) e.preventDefault(); if (isMobileCare()) return; this.setState(this.state.carePinned === k ? { carePinned: null } : { carePinned: k, careHover: null }); }
     }));
     const careDefaultCls = 'care-desc care-desc--default' + (!careActive ? ' is-shown' : '');
+    const careWrapCls = 'care-desc-wrap' + (careActive ? ' is-open' : '');
     const careAccCls = 'care-accordion' + (this.state.careMobileOpen ? ' is-open' : '');
     const careMobileToggle = (e) => { if (e && e.preventDefault) e.preventDefault(); if (!isMobileCare()) return; this.setState({ careMobileOpen: !this.state.careMobileOpen }); };
     const careSizerText = ['before','during','after'].reduce((a,k)=>{ [this.copy.en[k+'Desc'], this.copy.es[k+'Desc']].forEach(x=>{ if(x && x.length>a.length) a=x; }); return a; }, '');
@@ -621,6 +634,7 @@ class Component extends DCLogic {
       panelStyle,
       careMoments,
       careDefaultCls,
+      careWrapCls,
       careAccCls,
       careMobileToggle,
       careSizerText,
